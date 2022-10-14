@@ -1,4 +1,5 @@
-const { model, Schema } = require('mongoose');
+import { model, Schema } from 'mongoose';
+// const { model, Schema } = require('mongoose');
 
 const bookSchema = new Schema({
 	author: String,
