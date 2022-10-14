@@ -3,6 +3,7 @@ import { Response } from 'express';
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 dotenv.config();
+import {} from './types/global';
 
 // apollo server requires 2 things to run:
 // typeDefs - graphql type definitions
@@ -16,11 +17,11 @@ const server = new ApolloServer({
 	resolvers,
 });
 
-declare module 'express' {
-	export interface Response {
-		url: string;
-	}
-}
+// declare module 'express' {
+// 	export interface Response {
+// 		url: string;
+// 	}
+// }
 
 mongoose
 	.connect(process.env.MONGO_URI)

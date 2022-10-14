@@ -1,25 +1,6 @@
 // resolvers are functionalities that we can use to modify out typeDefs
 const Book = require('../models/Book');
-
-type TBook = {
-	author: string;
-	amount: number;
-	lastModified: string;
-	ID: string;
-	pages: number;
-	rating: number;
-	status: string;
-	title: string;
-	bookInput: bookInput;
-};
-
-type bookInput = {
-	author: string;
-	pages: number;
-	rating: number;
-	status: string;
-	title: string;
-};
+import { IBook, IBookArgs, IBookInput } from '../types/book';
 
 module.exports = {
 	Query: {
@@ -27,11 +8,11 @@ module.exports = {
 
 		// get ID from args using destructuring
 		// async book(parent, { ID }: TBook) {
-		async book(parent: any, { ID }: TBook) {
+		async book<T>(parent: T, { ID }: IBook) {
 			// search book in our database with mongoose
 			return await Book.findById(ID);
 		},
-		async getBooks(parent: any, { amount }: TBook) {
+		async getBooks<T>(parent: T, { amount }: IBookArgs) {
 			return await Book.find()
 				.sort({
 					// sort ascending lastModified: -1,
@@ -43,9 +24,9 @@ module.exports = {
 		},
 	},
 	Mutation: {
-		async createBook(
-			parent: any,
-			{ bookInput: { author, pages, rating, status, title } }: TBook
+		async createBook<T>(
+			parent: T,
+			{ bookInput: { author, pages, rating, status, title } }: IBookInput
 		) {
 			// create mongoose model
 			const createdBook = new Book({
@@ -68,7 +49,7 @@ module.exports = {
 			};
 		},
 
-		async deleteBook(parent: any, { ID }: TBook) {
+		async deleteBook<T>(parent: T, { ID }: IBook) {
 			const wasDeleted = (
 				await Book.deleteOne({
 					// delete book based on _id coming from MongoDB
@@ -79,9 +60,9 @@ module.exports = {
 			return wasDeleted;
 		},
 
-		async editBook(
-			parent: any,
-			{ ID, bookInput: { author, pages, rating, status, title } }: TBook
+		async editBook<T>(
+			parent: T,
+			{ ID, bookInput: { author, pages, rating, status, title } }: IBookInput
 		) {
 			// updateOne has 2 parameters
 			// first is filter, how we want to update our book, we want to update it based on it's ID
