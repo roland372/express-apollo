@@ -62,7 +62,11 @@ module.exports = {
 			};
 		},
 
-		async loginUser<T>(parent: T, { loginInput: { email, password } }: any) {
+		async loginUser<T>(
+			parent: T,
+			{ loginInput: { email, password } }: any,
+			{ req, res, session }: any
+		) {
 			// check if user exists with email
 			const user = await User.findOne({ email });
 
@@ -74,38 +78,49 @@ module.exports = {
 				});
 
 				// attach token to user model
+				res.cookie('myCookie', token, {
+					httpOnly: true,
+					secure: false,
+					maxAge: 1000 * 60 * 60 * 24 * 7,
+				});
 				user.token = token;
+				req.session.token = token;
+
+				// console.log(session);
+				// console.log(loggedUser.token);
+				// console.log(req.session.token);
 
 				return {
 					id: user.id,
 					...user._doc,
+					user,
 				};
 			} else {
 				throw new ApolloError('Incorrect password', 'INCORRECT_PASSWORD');
 			}
 		},
 
-		// if (req.session) {
-		// 	return req.session.destroy((err: any) => {
-		// 		if (err) {
-		// 			res.status(400).send('Unable to log out');
-		// 		} else {
-		// 			res.clearCookie('token');
-		// 			res.send('Logout successful');
-		// 		}
-		// 	});
-		// }
-		// res.end();
-		// console.log(req);
-		// console.log(req.session);
-		// async logoutUser(req: Request | any, res: Response, { session }: any) {
+		// async logoutUser<T>(parent: T, {}, { req, res }: any) {
+		async logoutUser<T>(parent: T, {}, context: any) {
+			// console.log(context.user);
+			const token = context.req.headers.token || '';
+			const user = await User.findOne({ token });
+			// console.log(token);
+			// console.log(user);
+			// console.log(context.user);
 
-		// 	console.log(session);
-		// 	console.log('Logout successful');
-		// },
+			console.log(context.req.session);
 
-		async logoutUser(parent: any, {}: any, { req }: any) {
-			console.log(req.session);
+			if (context.req.session) {
+				context.req.session.destroy((err: any) => {
+					if (err) {
+						console.log('unable to logout');
+					} else {
+						console.log('Logout successful');
+					}
+				});
+			}
+			console.log(context.req.session);
 		},
 	},
 };
