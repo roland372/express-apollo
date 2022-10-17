@@ -66,5 +66,7 @@ module.exports = gql`
 
 		registerUser(registerInput: RegisterInput): User!
 		loginUser(loginInput: LoginInput): User!
+
+		logoutUser: Boolean
 	}
 `;

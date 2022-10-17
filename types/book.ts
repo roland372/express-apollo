@@ -1,4 +1,6 @@
-export type IBook = {
+import { Document } from 'mongoose';
+
+export interface IBook {
 	author: string;
 	lastModified: string;
 	ID: string;
@@ -6,7 +8,7 @@ export type IBook = {
 	rating: number;
 	status: string;
 	title: string;
-};
+}
 
 export interface IBookInput extends IBook {
 	bookInput: IBook;
