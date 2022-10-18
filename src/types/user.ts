@@ -11,4 +11,5 @@ export interface IUser extends Document {
 
 export interface IUserInput extends IUser {
 	registerInput: IUser;
+	loginInput: IUser;
 }
