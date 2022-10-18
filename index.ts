@@ -54,19 +54,6 @@ async function startApolloServer() {
 			res,
 			session: req.session,
 		}),
-
-		// context: async ({ req, res }: any) => {
-		// 	const token = req.headers.token || '';
-		// 	// console.log(token);
-		// 	const user = await User.findOne({ token });
-
-		// 	if (!user) throw new GraphQLError('User is not authenticated!');
-		// 	return user;
-		// },
-
-		// context: async ({ req }: any) => ({
-		// 	session: req.session,
-		// }),
 	});
 	await server.start();
 

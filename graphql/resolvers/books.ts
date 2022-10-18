@@ -1,5 +1,6 @@
 // resolvers are functionalities that we can use to modify out typeDefs
 const Book = require('../../models/Book');
+const User = require('../../models/User');
 import { IBook, IBookArgs, IBookInput } from '../../types/book';
 
 module.exports = {
@@ -12,7 +13,20 @@ module.exports = {
 			// search book in our database with mongoose
 			return await Book.findById(ID);
 		},
-		async getBooks<T>(parent: T, { amount }: IBookArgs) {
+		async getBooks<T>(
+			parent: T,
+			{ amount }: IBookArgs,
+			{ req, res, session }: any
+		) {
+			const token = req.session.token;
+			// const token = '123';
+
+			console.log('user token', req.user);
+			console.log('SESION LOG', session);
+			const user = await User.findOne({ token });
+			console.log('USER OBJECT', user);
+			if (!user) return null;
+
 			return await Book.find()
 				.sort({
 					// sort ascending lastModified: -1,

@@ -51,7 +51,7 @@ module.exports = {
 			);
 
 			// attach token to user model, so we can grab it later
-			newUser.token = token;
+			// newUser.token = token;
 
 			// save user to database
 			const res: any = await newUser.save();
@@ -78,22 +78,17 @@ module.exports = {
 				});
 
 				// attach token to user model
-				res.cookie('myCookie', token, {
-					httpOnly: true,
-					secure: false,
-					maxAge: 1000 * 60 * 60 * 24 * 7,
-				});
-				user.token = token;
 				req.session.token = token;
+				console.log('SESSION TOKEN', req.session);
 
-				// console.log(session);
-				// console.log(loggedUser.token);
-				// console.log(req.session.token);
+				user.token = token;
+				console.log('USER TOKEN ', user);
+
+				console.log('SESSION LOG', session);
 
 				return {
 					id: user.id,
 					...user._doc,
-					user,
 				};
 			} else {
 				throw new ApolloError('Incorrect password', 'INCORRECT_PASSWORD');
@@ -101,26 +96,36 @@ module.exports = {
 		},
 
 		// async logoutUser<T>(parent: T, {}, { req, res }: any) {
-		async logoutUser<T>(parent: T, {}, context: any) {
+		async logoutUser<T>(parent: T, {}, { req, res, session }: any) {
 			// console.log(context.user);
-			const token = context.req.headers.token || '';
-			const user = await User.findOne({ token });
+			// const token = context.req.headers.token || '';
+			// console.log(token);
+			// const user = await User.findOne({ token });
 			// console.log(token);
 			// console.log(user);
 			// console.log(context.user);
 
-			console.log(context.req.session);
+			console.log(req.session);
 
-			if (context.req.session) {
-				context.req.session.destroy((err: any) => {
+			if (req.session) {
+				req.session.destroy((err: any) => {
 					if (err) {
 						console.log('unable to logout');
 					} else {
 						console.log('Logout successful');
+						req.session = {};
 					}
 				});
+				// req.session.clear((err: any) => {
+				// 	if (err) {
+				// 		console.log('unable to logout');
+				// 	} else {
+				// 		console.log('Logout successful');
+				// 		req.session = null;
+				// 	}
+				// });
 			}
-			console.log(context.req.session);
+			console.log(req.session);
 		},
 	},
 };
