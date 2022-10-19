@@ -1,6 +1,6 @@
 export const typeBooks = `#graphql
 type Book {
-    author: String
+  author: String
 	lastModified: String
 	_id: String
 	pages: Int
@@ -24,9 +24,15 @@ input EditBookInput {
 	title: String
 }
 
+type Pagination {
+		totalItems: Int
+    books: [Book]
+}
+
 type Query {
     getSingleBook(ID: ID!): Book!
     getAllBooks(amount: Int): [Book]
+    getSomeBooks(limit: Int, page: Int): Pagination
 }
 type Mutation {
   createBook(bookInput: BookInput): Book!

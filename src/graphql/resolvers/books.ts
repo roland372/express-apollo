@@ -2,6 +2,7 @@ import Book from '../../models/Book';
 import { GraphQLError } from 'graphql';
 
 import { IBook, IBookArgs, IBookInput } from '../../types/book';
+import { TPagination } from '../../types/pagination';
 
 export const booksResolvers = {
 	Query: {
@@ -21,6 +22,22 @@ export const booksResolvers = {
 					// show only amount of books
 					.limit(amount)
 			);
+		},
+
+		async getSomeBooks<T>(parent: T, args: TPagination) {
+			const totalBooks = await Book.countDocuments();
+
+			const page = args.page || 1;
+			const booksPerPage = args.limit || totalBooks;
+
+			const books = await Book.find()
+				.sort({
+					lastModified: -1,
+				})
+				.skip((page - 1) * booksPerPage)
+				.limit(booksPerPage);
+
+			return { totalItems: totalBooks, books };
 		},
 	},
 	Mutation: {
