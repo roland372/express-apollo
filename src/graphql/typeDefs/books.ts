@@ -41,4 +41,9 @@ type Mutation {
 	# editBook(ID: ID!, editBookInput: editBookInput): Boolean
 	editBook(ID: ID!, bookInput: EditBookInput): Boolean
 }
+
+type Subscription {
+	# trigger an event whenever we create new book
+	bookCreated(bookInput: BookInput): Book!
+}
 `;

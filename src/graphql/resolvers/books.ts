@@ -4,6 +4,9 @@ import { GraphQLError } from 'graphql';
 import { IBook, IBookArgs, IBookInput } from '../../types/book';
 import { TPagination } from '../../types/pagination';
 
+import { PubSub } from 'graphql-subscriptions';
+const pubsub = new PubSub();
+
 export const booksResolvers = {
 	Query: {
 		async getSingleBook<T>(parent: T, { ID }) {
@@ -47,10 +50,10 @@ export const booksResolvers = {
 			context: any
 		) {
 			try {
-				if (!context.user) {
-					console.log(context);
-					return new GraphQLError('not logged in');
-				}
+				// if (!context.user) {
+				// 	console.log(context);
+				// 	return new GraphQLError('not logged in');
+				// }
 
 				const newBook = new Book({
 					author: author,
@@ -60,8 +63,9 @@ export const booksResolvers = {
 					status: status,
 					title: title,
 				});
+
 				await newBook.save();
-				console.log(context);
+				pubsub.publish('BOOK_CREATED', { bookCreated: newBook });
 				return newBook;
 			} catch (err) {
 				throw new GraphQLError(`Error: ${err}`);
@@ -101,6 +105,12 @@ export const booksResolvers = {
 			).deletedCount;
 			// deletedCount will return 1 if we deleted book or 0 if nothing was deleted
 			return wasDeleted;
+		},
+	},
+
+	Subscription: {
+		bookCreated: {
+			subscribe: () => pubsub.asyncIterator(['BOOK_CREATED']),
 		},
 	},
 };

@@ -3,6 +3,10 @@ import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHt
 import { typeDefs } from './graphql/typeDefs/index';
 import { resolvers } from './graphql/resolvers/index';
 
+import { makeExecutableSchema } from '@graphql-tools/schema';
+import { WebSocketServer } from 'ws';
+import { useServer } from 'graphql-ws/lib/use/ws';
+
 import User from './models/User';
 import mongoose from 'mongoose';
 
@@ -24,12 +28,33 @@ async function startApolloServer() {
 		.then(() => console.log('connected to DB'));
 	const app = express();
 
+	const schema = makeExecutableSchema({ typeDefs, resolvers });
+
 	const httpServer = http.createServer(app);
-	const server = new ApolloServer({
-		typeDefs,
-		resolvers,
-		plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+
+	const wsServer = new WebSocketServer({
+		server: httpServer,
+		path: '/graphql',
 	});
+
+	const serverCleanup = useServer({ schema }, wsServer);
+
+	const server = new ApolloServer({
+		schema,
+		plugins: [
+			ApolloServerPluginDrainHttpServer({ httpServer }),
+			{
+				async serverWillStart() {
+					return {
+						async drainServer() {
+							await serverCleanup.dispose();
+						},
+					};
+				},
+			},
+		],
+	});
+
 	await server.start();
 	app.use(
 		'/',
