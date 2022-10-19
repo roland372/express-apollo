@@ -64,8 +64,12 @@ export const booksResolvers = {
 					title: title,
 				});
 
+				console.log(pubsub);
 				await newBook.save();
-				pubsub.publish('BOOK_CREATED', { bookCreated: newBook });
+
+				await pubsub.publish('BOOK_CREATED', { bookAdded: newBook });
+				console.log(pubsub);
+
 				return newBook;
 			} catch (err) {
 				throw new GraphQLError(`Error: ${err}`);
@@ -109,7 +113,7 @@ export const booksResolvers = {
 	},
 
 	Subscription: {
-		bookCreated: {
+		bookAdded: {
 			subscribe: () => pubsub.asyncIterator(['BOOK_CREATED']),
 		},
 	},

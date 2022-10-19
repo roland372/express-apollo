@@ -44,6 +44,7 @@ type Mutation {
 
 type Subscription {
 	# trigger an event whenever we create new book
-	bookCreated(bookInput: BookInput): Book!
+	# bookAdded(bookInput: BookInput): Book
+	bookAdded: Book!
 }
 `;
