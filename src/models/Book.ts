@@ -1,7 +1,7 @@
 import mongoose, { Schema } from 'mongoose';
-import { TBook } from '../types/types';
+import { IBook } from '../types/book';
 
-const BookSchema: Schema<TBook> = new Schema({
+const BookSchema: Schema<IBook> = new Schema({
 	author: String,
 	lastModified: String,
 	pages: Number,

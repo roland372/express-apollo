@@ -9,12 +9,20 @@ type Book {
 	title: String
 }
 
+enum Status {
+	reading
+	completed
+	on_hold
+	dropped
+	plan_to_read
+}
+
 # allow user to create book
 input BookInput {
 	author: String!
 	pages: Int
 	rating: Int
-	status: String
+	status: Status
 	title: String!
 	}
 
@@ -24,16 +32,30 @@ input EditBookInput {
 	title: String
 }
 
+input FilterInput {
+	author: String
+	pagesMin: Int
+	status: Status
+	title: String
+}
+
 type Pagination {
 		totalItems: Int
     books: [Book]
 }
 
 type Query {
+	getBooks(bookInput: BookInput, limit: Int, offset:Int): [Book]
+}
+
+
+type Query {
     getSingleBook(ID: ID!): Book!
     getAllBooks(amount: Int): [Book]
     getSomeBooks(limit: Int, page: Int): Pagination
+    filterBooks(filterInput: FilterInput, sort: String): [Book]
 }
+
 type Mutation {
   createBook(bookInput: BookInput): Book!
 	# deleteBook(ID: ID!): Book

@@ -1,7 +1,7 @@
 import mongoose, { Schema } from 'mongoose';
-import { TUser } from '../types/types';
+import { IUser } from '../types/user';
 
-const UserSchema: Schema<TUser> = new Schema({
+const UserSchema: Schema<IUser> = new Schema({
 	username: { type: String, required: true, unique: true, min: 6, max: 30 },
 	email: { type: String, required: true, unique: true, max: 255 },
 	password: { type: String, required: true, min: 6, max: 30 },

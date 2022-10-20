@@ -2,6 +2,7 @@ import Book from '../../models/Book';
 import { GraphQLError } from 'graphql';
 
 import { IBook, IBookArgs, IBookInput } from '../../types/book';
+import { TQuery } from '../../types/query';
 import { TPagination } from '../../types/pagination';
 
 import { PubSub, withFilter } from 'graphql-subscriptions';
@@ -27,6 +28,25 @@ export const booksResolvers = {
 			);
 		},
 
+		async filterBooks<T>(
+			parent: T,
+			{ filterInput: { author, pagesMin, status, title }, sort }
+		) {
+			const query: any = {};
+
+			if (author) query.author = { $regex: author, $options: 'i' };
+			if (status) query.status = { $regex: status, $options: 'i' };
+			if (title) query.title = { $regex: title, $options: 'i' };
+			if (pagesMin) query.pages = { $gte: pagesMin };
+
+			let sortOpt = sort;
+			sortOpt === 'asc' ? (sortOpt = 1) : (sortOpt = -1);
+
+			return await Book.find(query).sort({
+				lastModified: sortOpt,
+			});
+		},
+
 		async getSomeBooks<T>(parent: T, args: TPagination) {
 			const totalBooks = await Book.countDocuments();
 
@@ -47,7 +67,7 @@ export const booksResolvers = {
 		async createBook<T>(
 			parent: T,
 			{ bookInput: { author, pages, rating, status, title } }: IBookInput,
-			context: any
+			{ session }: any
 		) {
 			try {
 				// if (!context.user) {
