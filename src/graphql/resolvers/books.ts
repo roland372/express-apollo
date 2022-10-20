@@ -124,7 +124,8 @@ export const booksResolvers = {
 			subscribe: withFilter(
 				() => pubsub.asyncIterator('BOOK_CREATED_FILTER'),
 				(payload, variables) => {
-					// variables - what we added as parameters in our typeDefs for subscription
+					// variables - what we added as parameters in our typeDefs for subscription - user can request to listen to recieve subscriptions
+					// payload - comes from mutation
 
 					// console.log('variables', variables.title);
 					return payload.bookAddedFilter.title === variables.title;
