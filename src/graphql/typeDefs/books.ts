@@ -46,5 +46,6 @@ type Subscription {
 	# trigger an event whenever we create new book
 	# bookAdded(bookInput: BookInput): Book
 	bookAdded: Book!
+	bookAddedFilter(title: String!): Book!
 }
 `;

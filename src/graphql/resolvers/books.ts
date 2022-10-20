@@ -4,7 +4,7 @@ import { GraphQLError } from 'graphql';
 import { IBook, IBookArgs, IBookInput } from '../../types/book';
 import { TPagination } from '../../types/pagination';
 
-import { PubSub } from 'graphql-subscriptions';
+import { PubSub, withFilter } from 'graphql-subscriptions';
 const pubsub = new PubSub();
 
 export const booksResolvers = {
@@ -64,11 +64,15 @@ export const booksResolvers = {
 					title: title,
 				});
 
-				console.log(pubsub);
+				// console.log(pubsub);
 				await newBook.save();
 
 				await pubsub.publish('BOOK_CREATED', { bookAdded: newBook });
-				console.log(pubsub);
+
+				await pubsub.publish('BOOK_CREATED_FILTER', {
+					bookAddedFilter: newBook,
+				});
+				// console.log(pubsub);
 
 				return newBook;
 			} catch (err) {
@@ -115,6 +119,17 @@ export const booksResolvers = {
 	Subscription: {
 		bookAdded: {
 			subscribe: () => pubsub.asyncIterator(['BOOK_CREATED']),
+		},
+		bookAddedFilter: {
+			subscribe: withFilter(
+				() => pubsub.asyncIterator('BOOK_CREATED_FILTER'),
+				(payload, variables) => {
+					// variables - what we added as parameters in our typeDefs for subscription
+
+					// console.log('variables', variables.title);
+					return payload.bookAddedFilter.title === variables.title;
+				}
+			),
 		},
 	},
 };
