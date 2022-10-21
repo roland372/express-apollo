@@ -30,21 +30,30 @@ export const booksResolvers = {
 
 		async filterBooks<T>(
 			parent: T,
-			{ filterInput: { author, pagesMin, status, title }, sort }
+			{ filterInput: { author, pagesMin, status, title }, sort, limit, page }
 		) {
-			const query: any = {};
+			const totalBooks = await Book.countDocuments();
+			const currentPage = page || 1;
+			const booksPerPage = limit || totalBooks;
 
-			if (author) query.author = { $regex: author, $options: 'i' };
-			if (status) query.status = { $regex: status, $options: 'i' };
-			if (title) query.title = { $regex: title, $options: 'i' };
+			const query: Record<string, Record<string, string>> = {};
+
+			if (author) query.author = { $regex: author || '', $options: 'i' };
+			if (status) query.status = { $regex: status || '', $options: 'i' };
+			if (title) query.title = { $regex: title || '', $options: 'i' };
 			if (pagesMin) query.pages = { $gte: pagesMin };
 
 			let sortOpt = sort;
 			sortOpt === 'asc' ? (sortOpt = 1) : (sortOpt = -1);
 
-			return await Book.find(query).sort({
-				lastModified: sortOpt,
-			});
+			const books = await Book.find(query)
+				.sort({
+					lastModified: sortOpt,
+				})
+				.skip((currentPage - 1) * booksPerPage)
+				.limit(booksPerPage);
+
+			return { totalItems: totalBooks, books };
 		},
 
 		async getSomeBooks<T>(parent: T, args: TPagination) {

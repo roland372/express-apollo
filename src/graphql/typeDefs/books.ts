@@ -53,7 +53,8 @@ type Query {
     getSingleBook(ID: ID!): Book!
     getAllBooks(amount: Int): [Book]
     getSomeBooks(limit: Int, page: Int): Pagination
-    filterBooks(filterInput: FilterInput, sort: String): [Book]
+    # filterBooks(filterInput: FilterInput, sort: String): [Book]
+    filterBooks(filterInput: FilterInput, sort: String, limit: Int, page: Int): Pagination
 }
 
 type Mutation {
