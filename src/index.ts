@@ -24,7 +24,8 @@ import {} from './types/global';
 
 async function startApolloServer() {
 	await mongoose
-		.connect(process.env.MONGO_URI)
+		// .connect(process.env.MONGO_URI)
+		.connect("mongodb://mongo:27017/express-apollo-docker")
 		.then(() => console.log('connected to DB'));
 	const app = express();
 
