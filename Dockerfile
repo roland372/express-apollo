@@ -1,5 +1,7 @@
 FROM node:16
 
+RUN npm install -g nodemon
+
 # specify where our app will be in a container
 WORKDIR /usr/src/app
 
@@ -14,6 +16,15 @@ EXPOSE 5000
 
 CMD ["npm", "start"]
 
+# when we create our image it becomes read only, meaning if we want to make changes to it we'd have to rebuild it
+# to get around of this we can use volumes
+# we can map volumes to our docker, so if something changes in container our image will be rebuilt
+# image itself does not change, only directories
+
+# to create image
+# docker build -t damian/express-apollo:nodemon .
+
+#docker run -p 8000:3000 damian/express-apollo:nodemon -v C:\Users\damian.fatyga\WebstormProjects\express-apollo:/usr/src/app -v /usr/src/app/node_modules
 
 
 

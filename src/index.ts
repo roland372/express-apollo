@@ -24,8 +24,8 @@ import {} from './types/global';
 
 async function startApolloServer() {
 	await mongoose
-		// .connect(process.env.MONGO_URI)
-		.connect("mongodb://mongo:27017/express-apollo-docker")
+		.connect(process.env.MONGO_URI)
+		// .connect("mongodb://mongo:27017/express-apollo-docker")
 		.then(() => console.log('connected to DB'));
 	const app = express();
 
@@ -85,4 +85,4 @@ async function startApolloServer() {
 	);
 }
 
-startApolloServer().then(() => console.log('server running at port 5000'));
+startApolloServer().then(() => console.log('server running at port 5000....'));
