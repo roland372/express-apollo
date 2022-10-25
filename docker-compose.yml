@@ -8,18 +8,21 @@ services:
       - '5000:5000' # what port we want to use: what port our app is running
     volumes:
       - .:/usr/src/app
-      - /usr/src/app/node_modules
     links: # link our app service to mongo service
       - mongo
+    env_file:
+      - .env
+  #    depends_on:
+  #      - mongo
   mongo:
     container_name: mongo
     restart: always
     image: mongo
-    ports:
-      - '27017:27017' # default mongodb port
+    #    ports:
+    #      - '27017:27017' # default mongodb port
     environment:
       DB_URI: mongodb+srv://roland372:QQkoqriThjNFALX2@nodeexpress.ww8tmda.mongodb.net/testDB?retryWrites=true&w=majority
     volumes:
       - mongo:/data/db
 volumes:
-  mongo: {}
+  mongo: { }
