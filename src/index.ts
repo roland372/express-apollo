@@ -67,37 +67,45 @@ async function startApolloServer() {
     app.get("/auth/google",
         passport.authenticate("google", {
             scope: ["email", "profile", "https://www.googleapis.com/auth/calendar", "https://www.googleapis.com/auth/calendar.events"],
-            accessType: "offline"
+            accessType: 'offline',
+            prompt: 'consent'
         })
     );
 
     app.get("/google/callback", passport.authenticate("google", {
-        // successRedirect: "/protected",
+        scope: ["email", "profile", "https://www.googleapis.com/auth/calendar", "https://www.googleapis.com/auth/calendar.events"],
         successRedirect: "/graphql",
         failureRedirect: "/auth/failure",
-        // accessType: "offline"
+        accessType: 'offline',
+        prompt: 'consent'
     }));
 
 
     app.get("/calendar", isLoggedIn, async (req: any, res: any) => {
         // const user = await User.findOne({id: req.session.passport.user})
+
         const user = await Settings.findOne({googleId: req.session.passport.user.id});
+
         const refreshToken = user!.refreshToken;
+
+        // console.log("user", user);
+        // console.log("token", refreshToken);
 
         oauth2Client.setCredentials({refresh_token: refreshToken});
         const calendar = google.calendar({version: "v3", auth: oauth2Client});
 
-        console.log(calendar);
-
         const response = await calendar.events.list({
             calendarId: 'primary',
             timeMin: new Date().toISOString(),
-            maxResults: 10,
+            maxResults: 2,
             singleEvents: true,
             orderBy: 'startTime',
         });
 
-        console.log(response);
+        // console.log(response);
+
+        const events = response.data.items;
+        console.log(events);
 
         // console.log(req.session.passport.user);
 

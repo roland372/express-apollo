@@ -10,7 +10,7 @@ passport.use(new GoogleStrategy({
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
         callbackURL: "http://localhost:5000/google/callback",
         passReqToCallback: true,
-        // accessType: "offline"
+        accessType: 'offline', prompt: 'consent'
     },
     function (request, accessToken, refreshToken, profile, done) {
         // console.log(profile.displayName);
@@ -31,12 +31,13 @@ passport.use(new GoogleStrategy({
         //         new GoogleUser({
         //             username: profile.displayName,
         //             googleId: profile.id,
-        //             refreshToken: request.query.code
+        //             refreshToken: refreshToken
         //         }).save().then((newUser) => {
         //             console.log("new user: " + newUser);
         //         });
         //     }
         // });
+
 
         Settings.findOne({googleId: profile.id}).then((currentUser) => {
             if (currentUser) {
@@ -46,7 +47,7 @@ passport.use(new GoogleStrategy({
                 //    save new user to db
                 new Settings({
                     googleId: profile.id,
-                    refreshToken: request.query.code
+                    refreshToken: refreshToken
                 }).save().then((newUser) => {
                     // console.log("new user: " + newUser);
                 });
