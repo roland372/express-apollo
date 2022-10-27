@@ -1,7 +1,7 @@
 const passport = require("passport");
 const GoogleStrategy = require('passport-google-oauth2').Strategy;
 
-const GoogleUser = require("./models/GoogleUser");
+// const GoogleUser = require("./models/GoogleUser");
 const Settings = require("./models/Settings");
 
 
@@ -12,16 +12,8 @@ passport.use(new GoogleStrategy({
         passReqToCallback: true,
         accessType: 'offline', prompt: 'consent'
     },
-    function (request, accessToken, refreshToken, profile, done) {
-        // console.log(profile.displayName);
-        // console.log("request query", request.query.code);
-
-        // const calendar = google.calendar({version: "v3", auth: profile});
-
-        // console.log(request.query.code);
-        // console.log(accessToken);
-        // console.log("access token", accessToken);
-
+    async function (request, accessToken, refreshToken, profile, done) {
+        console.log(refreshToken);
         // GoogleUser.findOne({googleId: profile.id}).then((currentUser) => {
         //     if (currentUser) {
         //         //    user already exists
@@ -39,12 +31,16 @@ passport.use(new GoogleStrategy({
         // });
 
 
-        Settings.findOne({googleId: profile.id}).then((currentUser) => {
+        Settings.findOne({googleId: profile.id}).then(async (currentUser) => {
             if (currentUser) {
                 //    user already exists
                 // console.log("user is: ", currentUser);
             } else {
                 //    save new user to db
+
+                // await Settings.collection.drop();
+                // await new Settings({refreshToken}).save();
+
                 new Settings({
                     googleId: profile.id,
                     refreshToken: refreshToken
