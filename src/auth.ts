@@ -30,11 +30,12 @@ passport.use(new GoogleStrategy({
         //     }
         // });
 
+        await Settings.collection.drop();
 
         Settings.findOne({googleId: profile.id}).then(async (currentUser) => {
             if (currentUser) {
                 //    user already exists
-                // console.log("user is: ", currentUser);
+                console.log("user is: ", currentUser);
             } else {
                 //    save new user to db
 
@@ -45,7 +46,7 @@ passport.use(new GoogleStrategy({
                     googleId: profile.id,
                     refreshToken: refreshToken
                 }).save().then((newUser) => {
-                    // console.log("new user: " + newUser);
+                    console.log("new user: " + newUser);
                 });
             }
         });

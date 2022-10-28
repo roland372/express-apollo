@@ -57,11 +57,9 @@ async function startApolloServer() {
             maxAge: 1000 * 60 * 60 * 24,
         },
     }));
-
-
+    
     app.use(passport.initialize());
     app.use(passport.session());
-
 
     function isLoggedIn(req, res, next) {
         req.user ? next() : res.sendStatus(401);

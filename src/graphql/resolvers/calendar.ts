@@ -75,7 +75,7 @@ export const calendarResolvers = {
                     'timeZone': 'Europe/Warsaw',
                 },
                 'status': status,
-                'hangoutLink': hangoutLink
+                // 'hangoutLink': hangoutLink
             };
             const calendar: any = google.calendar({version: 'v3', auth: oauth2Client});
             calendar.events.insert({
@@ -97,10 +97,10 @@ export const calendarResolvers = {
 
 
 // {
-//     "summary": "This is the summary",
-//     "organizer": "This is the organizer",
-//     "start": "2022-10-28T13:00:00-07:00",
-//     "end": "2022-10-28T14:00:00-07:00",
+//     "summary": "summary",
+//     "organizer": "organizer",
+//     "start": "2022-10-29T13:00:00-07:00",
+//     "end": "2022-10-29T14:00:00-07:00",
 //     "status": "confirmed",
 //     "hangoutLink": "example.link.com"
 // }
