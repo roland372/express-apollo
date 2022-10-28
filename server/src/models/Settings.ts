@@ -6,8 +6,8 @@ import mongoose, {Schema} from 'mongoose';
 
 const SettingsSchema: Schema<any> = new Schema({
     googleId: String,
-    // refreshToken: String,
-    refreshToken: {type: String, required: true, unique: true},
+    refreshToken: String,
+    // refreshToken: {type: String, required: true, unique: true},
 });
 
 const Settings = mongoose.model("Settings", SettingsSchema);

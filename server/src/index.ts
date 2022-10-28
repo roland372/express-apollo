@@ -25,7 +25,7 @@ const passport = require("passport");
 require("./auth");
 
 const {google} = require("googleapis");
-
+const cookieSession = require("cookie-session");
 
 import {v4 as uuidv4} from 'uuid';
 import {} from './types/global';
@@ -57,13 +57,61 @@ async function startApolloServer() {
             maxAge: 1000 * 60 * 60 * 24,
         },
     }));
-    
+
+    // app.use(
+    //     cookieSession({name: "session", keys: ["test"], maxAge: 1000 * 60 * 60 * 24,})
+    // );
+
     app.use(passport.initialize());
     app.use(passport.session());
+
+    app.use(cors({
+        origin: "http://localhost:3000",
+        methods: "GET, POST, PUT, DELETE",
+        credentials: true
+    }));
 
     function isLoggedIn(req, res, next) {
         req.user ? next() : res.sendStatus(401);
     }
+
+    app.get("/login/success", (req: any, res: any) => {
+        if (req.user) {
+            res.status(200).json({
+                success: true,
+                message: "SUCCESS",
+                user: req.user,
+                cookies: req.cookies
+            });
+        }
+    });
+
+    app.get("/login/failed", (req, res) => {
+        res.status(401).json({
+            success: false,
+            message: "FAILURE"
+        });
+    });
+
+    app.get("/logout", (req: any, res: any) => {
+        req.logout();
+        res.redirect("http://localhost:3000");
+    });
+
+    app.get("/google", passport.authenticate("google", {
+            scope: ["profile", "https://www.googleapis.com/auth/calendar", "https://www.googleapis.com/auth/calendar.events"],
+            accessType: 'offline',
+            prompt: 'consent'
+        },
+    ));
+
+    app.get("/google/callback", passport.authenticate("google", {
+        successRedirect: "http://localhost:3000",
+        failureRedirect: "/login/failed",
+        accessType: 'offline',
+        prompt: 'consent'
+    }));
+
 
     app.get('/login', (req: any, res: any) => {
         // res.send('test');
@@ -74,6 +122,7 @@ async function startApolloServer() {
             '<a href="/graphql">protected route</a></div>');
     });
 
+
     app.get("/auth/google",
         passport.authenticate("google", {
             scope: ["email", "profile", "https://www.googleapis.com/auth/calendar", "https://www.googleapis.com/auth/calendar.events"],
@@ -82,24 +131,25 @@ async function startApolloServer() {
         })
     );
 
-    app.get("/google/callback", passport.authenticate("google", {
-        scope: ["email", "profile", "https://www.googleapis.com/auth/calendar", "https://www.googleapis.com/auth/calendar.events"],
-        successRedirect: "/graphql",
-        failureRedirect: "/auth/failure",
-        accessType: 'offline',
-        // prompt: 'consent'
-    }));
+    // app.get("/google/callback", passport.authenticate("google", {
+    //     scope: ["email", "profile", "https://www.googleapis.com/auth/calendar", "https://www.googleapis.com/auth/calendar.events"],
+    //     successRedirect: "/graphql",
+    //     failureRedirect: "/auth/failure",
+    //     accessType: 'offline',
+    //     // prompt: 'consent'
+    // }));
 
 
     app.get("/calendar", isLoggedIn, async (req: any, res: any) => {
         // const user = await User.findOne({id: req.session.passport.user})
 
+        // console.log("PASSPORT", req.session.passport.user.id);
         const user = await Settings.findOne({googleId: req.session.passport.user.id});
 
         const refreshToken = user!.refreshToken;
 
-        // console.log("user", user);
-        // console.log("token", refreshToken);
+        console.log("<----- USER ----->", user);
+        console.log("<----- TOKEN ----->", refreshToken);
 
         oauth2Client.setCredentials({refresh_token: refreshToken});
         const calendar = google.calendar({version: "v3", auth: oauth2Client});
@@ -191,21 +241,21 @@ async function startApolloServer() {
         next();
     });
 
-    app.get("/logout", (req: any, res: any, next: any) => {
-        // req.logout(req.user, err => {
-        //     if (err) return next(err);
-        //     res.redirect("/login");
-        // });
-
-        // console.log("SESSION BEFORE DESTROY", req.session);
-
-
-        req.session.destroy();
-
-        // console.log("SESSION AFTER DESTROY", req.session);
-        res.redirect("/login");
-        // res.send("goodbye");
-    });
+    // app.get("/logout", (req: any, res: any, next: any) => {
+    //     // req.logout(req.user, err => {
+    //     //     if (err) return next(err);
+    //     //     res.redirect("/login");
+    //     // });
+    //
+    //     // console.log("SESSION BEFORE DESTROY", req.session);
+    //
+    //
+    //     req.session.destroy();
+    //
+    //     // console.log("SESSION AFTER DESTROY", req.session);
+    //     res.redirect("/login");
+    //     // res.send("goodbye");
+    // });
 
     const schema = makeExecutableSchema({typeDefs, resolvers});
 
