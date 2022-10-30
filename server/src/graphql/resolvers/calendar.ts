@@ -1,7 +1,6 @@
 // import User from "../models/User";
-const Settings = require("../../models/Settings");
 import {google} from "googleapis";
-
+import loadOauthClient from '../../helpers/loadClientOauth';
 
 export const calendarResolvers = {
     Calendar: {
@@ -12,25 +11,12 @@ export const calendarResolvers = {
 
     Query: {
         async getCalendarEvents<T>(parent: T, args: any, req: any) {
-            const token = await Settings.find();
+            // const token = await Settings.find();
+            // const refreshToken = token[0].refreshToken;
+            // oauth2Client.setCredentials({refresh_token: refreshToken});
 
-            const oauth2Client = new google.auth.OAuth2(
-                process.env.GOOGLE_CLIENT_ID,
-                process.env.GOOGLE_CLIENT_SECRET,
-                process.env.GOOGLE_REDIRECT_URL
-            );
+            const oauth2Client = await loadOauthClient();
 
-            // console.log(req.session.passport.user.id);
-            // console.log(context.req);
-            // console.log(context.session.passport);
-            // console.log(context);
-
-            // const user = await Settings.findOne({googleId: req.session.passport.user.id});
-            const refreshToken = token[0].refreshToken;
-
-            console.log(refreshToken);
-
-            oauth2Client.setCredentials({refresh_token: refreshToken});
             const calendar = google.calendar({version: "v3", auth: oauth2Client});
 
             const response = await calendar.events.list({
@@ -50,17 +36,21 @@ export const calendarResolvers = {
 
     Mutation: {
         async addCalendarEvent<T>(parent: T, args: any) {
-            console.log(args);
+            // console.log(args);
             const {summary, organizer, start, end, status, hangoutLink} = args;
-            const token = await Settings.find();
-            const oauth2Client = new google.auth.OAuth2(
-                process.env.GOOGLE_CLIENT_ID,
-                process.env.GOOGLE_CLIENT_SECRET,
-                process.env.GOOGLE_REDIRECT_URL
-            );
-            oauth2Client.credentials = {
-                refresh_token: token[0].refreshToken
-            };
+
+            const oauth2Client = await loadOauthClient();
+
+            // const token = await Settings.find();
+            // const oauth2Client = new google.auth.OAuth2(
+            //     process.env.GOOGLE_CLIENT_ID,
+            //     process.env.GOOGLE_CLIENT_SECRET,
+            //     process.env.GOOGLE_REDIRECT_URL
+            // );
+            // oauth2Client.credentials = {
+            //     refresh_token: token[0].refreshToken
+            // };
+
             const event: any = {
                 'summary': summary,
                 'organizer': {

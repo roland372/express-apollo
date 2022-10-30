@@ -2,6 +2,7 @@ import {useEffect, useState} from "react";
 import './App.css';
 import Login from './components/Login';
 import LoginGoogle from './components/LoginGoogle';
+import axios from "axios";
 
 function App() {
     const [user, setUser] = useState(null);
@@ -11,6 +12,7 @@ function App() {
             await fetch("http://localhost:5000/login/success", {
                 method: "GET",
                 credentials: "include",
+                // @ts-ignore
                 headers: {
                     Accept: "application/json",
                     "Content-Type": "application/json",

@@ -1,12 +1,15 @@
 export {};
 
 declare module 'express' {
-	export interface Response {
-		url: string;
-	}
-	export interface Request {
-		session: string;
-	}
+    export interface Response {
+        url: string;
+        user: string;
+    }
+
+    export interface Request {
+        session: string;
+        user: string;
+    }
 }
 
 // declare global {

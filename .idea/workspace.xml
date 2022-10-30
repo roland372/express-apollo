@@ -2,18 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="be3ab6f4-1119-49d1-aa2f-84715c09c1f1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/client/src/App.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/components/Login.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/components/LoginGoogle.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/App.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/helpers/isLoggedIn.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/helpers/loadClientOauth.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/routes/auth.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/LoginGoogle.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/LoginGoogle.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/graphql/resolvers/calendar.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/graphql/resolvers/calendar.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/models/Settings.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/models/Settings.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/types/global.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/types/global.d.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,7 +42,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
-    "ts.external.directory.path": "C:\\Users\\damian.fatyga\\WebstormProjects\\express-apollo\\server\\node_modules\\typescript\\lib",
+    "ts.external.directory.path": "C:\\Users\\damian.fatyga\\WebstormProjects\\express-apollo\\client\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -73,7 +70,8 @@
       <workItem from="1666693017268" duration="8261000" />
       <workItem from="1666769166072" duration="18896000" />
       <workItem from="1666855992056" duration="21703000" />
-      <workItem from="1666942734441" duration="14490000" />
+      <workItem from="1666942734441" duration="15147000" />
+      <workItem from="1667140689783" duration="2934000" />
     </task>
     <servers />
   </component>

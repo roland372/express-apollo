@@ -51,7 +51,7 @@ function LoginGoogle() {
             {/*        console.log('Login Failed');*/}
             {/*    }}*/}
             {/*/>*/}
-            <button onClick={login}>Login with Google</button>
+            {/*<button onClick={login}>Login with Google</button>*/}
             <button onClick={google}>Login</button>
         </div>
     );
