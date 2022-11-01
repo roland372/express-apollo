@@ -40,14 +40,15 @@ export const usersResolvers = {
         async loginUser<T>(
             parent: T,
             {loginInput: {email, password}}: IUserInput,
-            context: any
+            context: any, req
         ) {
             try {
                 const user = await User.findOne({email});
-                console.log('found user', user);
+                // console.log('found user', user);
                 if (user && (await bcrypt.compare(password, user.password))) {
                     context.session.username = user.username;
-                    console.log(context);
+                    context.session.user = user;
+                    console.log("<----- CONTEXT ----->", context.session);
                     return user;
                 }
                 return new ApolloError(

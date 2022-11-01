@@ -33,7 +33,6 @@ function LoginGoogle() {
         }
     });
 
-
     const google = () => {
         window.open("http://localhost:5000/google", "_self");
     };
@@ -41,7 +40,7 @@ function LoginGoogle() {
     return (
         <div>
             {/*<GoogleLogin*/}
-            {/*    onSuccess={credentialResponse => {*/}
+            {/*    onSuccess={(credentialResponse: any) => {*/}
             {/*        console.log(credentialResponse);*/}
             {/*        let userObject = jwt_decode(credentialResponse.credential);*/}
             {/*        console.log(userObject);*/}
@@ -51,7 +50,6 @@ function LoginGoogle() {
             {/*        console.log('Login Failed');*/}
             {/*    }}*/}
             {/*/>*/}
-            {/*<button onClick={login}>Login with Google</button>*/}
             <button onClick={google}>Login</button>
         </div>
     );

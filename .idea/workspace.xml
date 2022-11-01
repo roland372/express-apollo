@@ -2,15 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="be3ab6f4-1119-49d1-aa2f-84715c09c1f1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/server/src/helpers/isLoggedIn.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/helpers/loadClientOauth.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/routes/auth.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/LoginGoogle.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/LoginGoogle.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/graphql/resolvers/calendar.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/graphql/resolvers/calendar.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/LoginGoogle.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/LoginGoogle.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/graphql/resolvers/books.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/graphql/resolvers/bookResolver.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/graphql/resolvers/calendar.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/graphql/resolvers/calendarResolver.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/graphql/resolvers/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/graphql/resolvers/indexResolver.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/graphql/resolvers/users.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/graphql/resolvers/userResolver.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/graphql/typeDefs/books.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/graphql/typeDefs/bookTypeDef.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/graphql/typeDefs/calendar.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/graphql/typeDefs/calendarTypeDef.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/graphql/typeDefs/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/graphql/typeDefs/indexTypeDef.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/graphql/typeDefs/users.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/graphql/typeDefs/userTypeDef.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/types/global.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/types/global.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/routes/auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/routes/auth.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,20 +40,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/damian.fatyga/WebstormProjects/express-apollo",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
-    "ts.external.directory.path": "C:\\Users\\damian.fatyga\\WebstormProjects\\express-apollo\\client\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/damian.fatyga/WebstormProjects/password-based-authentication-with-graphql-and-passport-master&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\damian.fatyga\\WebstormProjects\\express-apollo\\server\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\damian.fatyga\WebstormProjects\express-apollo\src\graphql" />
@@ -71,7 +79,13 @@
       <workItem from="1666769166072" duration="18896000" />
       <workItem from="1666855992056" duration="21703000" />
       <workItem from="1666942734441" duration="15147000" />
-      <workItem from="1667140689783" duration="2934000" />
+      <workItem from="1667140689783" duration="2974000" />
+      <workItem from="1667204856746" duration="14843000" />
+      <workItem from="1667223015232" duration="41000" />
+      <workItem from="1667223228214" duration="1862000" />
+      <workItem from="1667232464310" duration="1783000" />
+      <workItem from="1667313102010" duration="1143000" />
+      <workItem from="1667336843973" duration="4000" />
     </task>
     <servers />
   </component>

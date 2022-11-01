@@ -11,6 +11,7 @@ export const calendarResolvers = {
 
     Query: {
         async getCalendarEvents<T>(parent: T, args: any, req: any) {
+            // console.log(req.session);
             // const token = await Settings.find();
             // const refreshToken = token[0].refreshToken;
             // oauth2Client.setCredentials({refresh_token: refreshToken});
@@ -28,7 +29,7 @@ export const calendarResolvers = {
             });
 
             const events = response.data.items;
-            console.log(events);
+            // console.log(events);
 
             return events;
         },
