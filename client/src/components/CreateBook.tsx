@@ -12,7 +12,6 @@ const CreateBook = () => {
 	const [createBook, { error }] = useMutation(CREATE_BOOK_MUTATION);
 
 	const addBook = () => {
-		console.log(author);
 		createBook({
 			variables: {
 				author: author,
