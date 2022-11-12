@@ -2,23 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="be3ab6f4-1119-49d1-aa2f-84715c09c1f1" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/LoginGoogle.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/LoginGoogle.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/graphql/resolvers/books.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/graphql/resolvers/bookResolver.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/graphql/resolvers/calendar.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/graphql/resolvers/calendarResolver.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/graphql/resolvers/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/graphql/resolvers/indexResolver.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/graphql/resolvers/users.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/graphql/resolvers/userResolver.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/graphql/typeDefs/books.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/graphql/typeDefs/bookTypeDef.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/graphql/typeDefs/calendar.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/graphql/typeDefs/calendarTypeDef.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/graphql/typeDefs/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/graphql/typeDefs/indexTypeDef.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/graphql/typeDefs/users.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/graphql/typeDefs/userTypeDef.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/routes/auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/routes/auth.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/CreateBook.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/CreateBook.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/graphql/resolvers/bookResolver.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/graphql/resolvers/bookResolver.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,6 +71,7 @@
       <workItem from="1667232464310" duration="1783000" />
       <workItem from="1667313102010" duration="1143000" />
       <workItem from="1667336843973" duration="4000" />
+      <workItem from="1667401394321" duration="2000" />
     </task>
     <servers />
   </component>
