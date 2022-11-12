@@ -6,6 +6,7 @@ import { TQuery } from '../../types/query';
 import { TPagination } from '../../types/pagination';
 
 import { PubSub, withFilter } from 'graphql-subscriptions';
+import { send } from '../../../kafka/producer';
 
 const pubsub = new PubSub();
 
@@ -16,8 +17,7 @@ export const booksResolvers = {
 			return await Book.findById(ID);
 		},
 
-		async getAllBooks<T>(parent: T, { amount }: IBookArgs, req: any) {
-			console.log(req);
+		async getAllBooks<T>(parent: T, { amount }: IBookArgs, context: any) {
 			return (
 				Book.find()
 					.sort({
@@ -105,6 +105,8 @@ export const booksResolvers = {
 					bookAddedFilter: newBook,
 				});
 				// console.log(pubsub);
+
+				await send('books', newBook);
 
 				return newBook;
 			} catch (err) {

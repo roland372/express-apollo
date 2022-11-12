@@ -36,6 +36,12 @@ router.get('/login/failed', (req: Request, res: Response) => {
 
 router.get('/logout', (req: any, res: Response) => {
 	// req.logout();
+	req.logout(function (err) {
+		if (err) {
+			return err;
+		}
+		res.redirect('http://localhost:3000/');
+	});
 	req.session.destroy();
 	res.redirect('http://localhost:5000/login');
 });
@@ -59,8 +65,8 @@ router.get(
 		// successRedirect: "http://localhost:3000",
 		successRedirect: 'http://localhost:5000/protected',
 		failureRedirect: '/login/failed',
-		accessType: 'offline',
-		prompt: 'consent',
+		// accessType: 'offline',
+		// prompt: 'consent',
 	})
 );
 
